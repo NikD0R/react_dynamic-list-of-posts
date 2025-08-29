@@ -62,19 +62,19 @@ export const NewCommentForm: React.FC<Props> = ({
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    if (!name) {
+    if (!name.trim()) {
       setNameError('Name is required');
     }
 
-    if (!email) {
+    if (!email.trim()) {
       setEmailError('Email is required');
     }
 
-    if (!body) {
+    if (!body.trim()) {
       setBodyError('Enter some text');
     }
 
-    if (!name || !email || !body) {
+    if (!name.trim() || !email.trim() || !body.trim()) {
       return;
     }
 
@@ -83,12 +83,15 @@ export const NewCommentForm: React.FC<Props> = ({
     }
 
     setIsLoading(true);
+    const trimmed = {
+      name: name.trim(),
+      email: email.trim(),
+      body: body.trim(),
+    };
 
     addComment({
       postId: selectedPostId,
-      name,
-      email,
-      body,
+      ...trimmed,
     })
       .then(() => setBody(''))
       .finally(() => setIsLoading(false));

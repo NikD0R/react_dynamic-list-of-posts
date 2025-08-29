@@ -45,6 +45,7 @@ export const PostDetails: React.FC<Props> = ({
     setComments(currentComments =>
       currentComments.filter(comment => comment.id !== commentId),
     );
+
     return commentsServices.deleteComment(commentId).catch(e => {
       setComments(prevComments);
       setErrorDeletion('Unable to delete a comment');
